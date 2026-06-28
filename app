@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Certificados</title>
+
+<style>
+:root{
+    --fied-azul:#111a4e;
+    --fied-laranja:#f47b20;
+
+    --uninta-vermelho:#9e1c1c;
+    --uninta-vermelho2:#c62828;
+
+    --bg:#f7f8fb;
+}
+
+body{
+    font-family:Arial;
+    margin:0;
+    background:var(--bg);
+}
+
+/* TELA INICIAL */
+#telaInicial{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.card-inst{
+    display:inline-block;
+    width:260px;
+    padding:30px;
+    margin:20px;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.card-inst:hover{
+    transform:translateY(-5px);
+}
+
+.card-inst img{
+    height:60px;
+    margin-bottom:15px;
+}
+
+/* PORTAL */
+#portal{
+    display:none;
+}
+
+.topbar{
+    height:6px;
+}
+
+.header{
+    padding:20px;
+    background:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #eee;
+}
+
+.logo{
+    height:50px;
+}
+
+.btn{
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* CORES DINÂMICAS */
+.fied .topbar{ background:linear-gradient(90deg,var(--fied-azul),var(--fied-laranja)); }
+.uninta .topbar{ background:linear-gradient(90deg,var(--uninta-vermelho),var(--uninta-vermelho2)); }
+
+.fied .btn{ background:var(--fied-azul); color:#fff; }
+.uninta .btn{ background:var(--uninta-vermelho); color:#fff; }
+
+.container{
+    padding:30px;
+}
+
+.search{
+    padding:15px;
+    width:100%;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:10px;
+    border-left:5px solid #ccc;
+}
+
+/* borda dinâmica */
+.fied .card{ border-left-color:var(--fied-laranja); }
+.uninta .card{ border-left-color:var(--uninta-vermelho); }
+
+</style>
+</head>
+
+<body>
+
+<!-- ESCOLHA -->
+<div id="telaInicial">
+    <h2>Selecione a instituição</h2>
+
+    <div class="card-inst" onclick="selecionar('fied')">
+        <img src="https://cdn.tess.im/assets/uploads/c0d80a28-2c2c-4b7b-9a29-bddcc6cead5b.png">
+        <h3>FIED</h3>
+    </div>
+
+    <div class="card-inst" onclick="selecionar('uninta')">
+        <img src="doc://file_e932c72a-61ba-4f5b-8b41-9866394de71a">
+        <h3>UNINTA</h3>
+    </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+
+    <div class="topbar"></div>
+
+    <div class="header">
+        <img id="logo" class="logo">
+        <div>
+            <button class="btn" onclick="trocar()">Trocar instituição</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <input class="search" placeholder="Buscar certificados...">
+
+        <!-- RESULTADOS (vazio por enquanto) -->
+        <div id="resultado"></div>
+    </div>
+
+</div>
+
+<script>
+
+let instAtual = null;
+
+function selecionar(inst){
+    instAtual = inst;
+
+    document.body.classList.remove("fied","uninta");
+    document.body.classList.add(inst);
+
+    document.getElementById("telaInicial").style.display="none";
+    document.getElementById("portal").style.display="block";
+
+    // troca logo
+    if(inst==="fied"){
+        document.getElementById("logo").src="https://cdn.tess.im/assets/uploads/c0d80a28-2c2c-4b7b-9a29-bddcc6cead5b.png";
+    }else{
+        document.getElementById("logo").src="doc://file_e932c72a-61ba-4f5b-8b41-9866394de71a";
+    }
+}
+
+function trocar(){
+    document.getElementById("portal").style.display="none";
+    document.getElementById("telaInicial").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
